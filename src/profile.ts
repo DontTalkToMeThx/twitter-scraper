@@ -167,6 +167,7 @@ export async function getProfile(
     return {
       success: false,
       err: new Error(errors[0].message),
+      exhausted: false,
     };
   }
 
@@ -174,6 +175,7 @@ export async function getProfile(
     return {
       success: false,
       err: new Error('User not found.'),
+      exhausted: false,
     };
   }
   const { result: user } = value.data.user;
@@ -183,6 +185,7 @@ export async function getProfile(
     return {
       success: false,
       err: new Error('rest_id not found.'),
+      exhausted: false,
     };
   }
 
@@ -192,6 +195,7 @@ export async function getProfile(
     return {
       success: false,
       err: new Error(`Either ${username} does not exist or is private.`),
+      exhausted: false,
     };
   }
 
@@ -230,5 +234,6 @@ export async function getUserIdByScreenName(
   return {
     success: false,
     err: new Error('User ID is undefined.'),
+    exhausted: false,
   };
 }

@@ -103,6 +103,7 @@ async function getFollowingTimeline(
   );
 
   if (!res.success) {
+    if (res.exhausted) throw new Error('Exhausted');
     throw res.err;
   }
 
@@ -151,6 +152,7 @@ async function getFollowersTimeline(
   );
 
   if (!res.success) {
+    if (res.exhausted) throw new Error('Exhausted');
     throw res.err;
   }
 

@@ -65,6 +65,10 @@ export interface TwitterAuth {
    * @param headers A Headers instance representing a request's headers.
    */
   installTo(headers: Headers, url: string): Promise<void>;
+
+  setExhausted(isExhausted: boolean): void;
+
+  isExhausted(): boolean;
 }
 
 /**
@@ -95,6 +99,7 @@ export class TwitterGuestAuth implements TwitterAuth {
   protected jar: CookieJar;
   protected guestToken?: string;
   protected guestCreatedAt?: Date;
+  protected exhausted: boolean;
 
   fetch: typeof fetch;
 
@@ -105,6 +110,7 @@ export class TwitterGuestAuth implements TwitterAuth {
     this.fetch = withTransform(options?.fetch ?? fetch, options?.transform);
     this.bearerToken = bearerToken;
     this.jar = new CookieJar();
+    this.exhausted = false;
   }
 
   cookieJar(): CookieJar {
@@ -141,6 +147,14 @@ export class TwitterGuestAuth implements TwitterAuth {
     }
 
     return new Date(this.guestCreatedAt);
+  }
+
+  setExhausted(isExhausted: boolean) {
+    this.exhausted = isExhausted;
+  }
+
+  isExhausted(): boolean {
+    return this.exhausted;
   }
 
   async installTo(headers: Headers, url: string): Promise<void> {
