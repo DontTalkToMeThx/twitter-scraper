@@ -11,8 +11,9 @@ async function getTrends(auth) {
     params.set('entity_tokens', 'false');
     const res = await (0, api_1.requestApi)(`https://api.twitter.com/2/guide.json?${params.toString()}`, auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     const instructions = res.value.timeline?.instructions ?? [];

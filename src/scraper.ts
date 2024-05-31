@@ -505,6 +505,12 @@ export class Scraper {
     return this;
   }
 
+  public waitForAuthToBeReady(): Promise<void> {
+    return Promise.any(
+      this.auths.map((a) => a.auth.getExhaustPromise()).filter((a) => a),
+    );
+  }
+
   /**
    * Sets the optional CSRF token to be used in requests.
    * @param _token The CSRF token to be used in requests.

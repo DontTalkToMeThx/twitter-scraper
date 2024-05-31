@@ -92,8 +92,9 @@ async function getSearchTimeline(query, maxItems, searchMode, auth, cursor) {
     params.set('variables', (0, json_stable_stringify_1.default)(variables));
     const res = await (0, api_1.requestApi)(`https://api.twitter.com/graphql/gkjsKepM6gl_HmFWoWKfgg/SearchTimeline?${params.toString()}`, auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     return res.value;

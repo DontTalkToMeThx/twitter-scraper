@@ -44,11 +44,13 @@ async function requestApi(url, auth, method = 'GET') {
             const xRateLimitRemaining = res.headers.get('x-rate-limit-remaining');
             const xRateLimitReset = res.headers.get('x-rate-limit-reset');
             if (xRateLimitRemaining == '0' && xRateLimitReset) {
-                auth.setExhausted(true);
                 const currentTime = new Date().valueOf() / 1000;
                 const timeDeltaMs = 1000 * (parseInt(xRateLimitReset) - currentTime);
+                auth.setExhausted(true, new Promise((r) => {
+                    setTimeout(r, timeDeltaMs);
+                }));
                 setTimeout(() => {
-                    auth.setExhausted(false);
+                    auth.setExhausted(false, undefined);
                 }, timeDeltaMs);
                 return {
                     success: false,

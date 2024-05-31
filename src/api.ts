@@ -36,7 +36,11 @@ export const bearerToken =
  */
 export type RequestApiResult<T> =
   | { success: true; value: T }
-  | { success: false; err: Error; exhausted: boolean };
+  | {
+      success: false;
+      err: Error;
+      exhausted: boolean;
+    };
 
 /**
  * Used internally to send HTTP requests to the Twitter API.
@@ -85,11 +89,16 @@ export async function requestApi<T>(
       const xRateLimitReset = res.headers.get('x-rate-limit-reset');
 
       if (xRateLimitRemaining == '0' && xRateLimitReset) {
-        auth.setExhausted(true);
         const currentTime = new Date().valueOf() / 1000;
         const timeDeltaMs = 1000 * (parseInt(xRateLimitReset) - currentTime);
+        auth.setExhausted(
+          true,
+          new Promise((r) => {
+            setTimeout(r, timeDeltaMs);
+          }),
+        );
         setTimeout(() => {
-          auth.setExhausted(false);
+          auth.setExhausted(false, undefined);
         }, timeDeltaMs);
 
         return {

@@ -336,6 +336,9 @@ class Scraper {
         console.warn('Warning: Scraper#withCookie is deprecated and will be removed in a later version. Use Scraper#login or Scraper#setCookies instead.');
         return this;
     }
+    waitForAuthToBeReady() {
+        return Promise.any(this.auths.map((a) => a.auth.getExhaustPromise()).filter((a) => a));
+    }
     /**
      * Sets the optional CSRF token to be used in requests.
      * @param _token The CSRF token to be used in requests.

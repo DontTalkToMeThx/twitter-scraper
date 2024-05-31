@@ -123,7 +123,9 @@ export async function fetchTweets(
   );
 
   if (!res.success) {
-    if (res.exhausted) throw new Error('Exhausted');
+    if (res.exhausted) {
+throw new Error('Exhausted');
+}
     throw res.err;
   }
 
@@ -154,7 +156,9 @@ export async function fetchListTweets(
   );
 
   if (!res.success) {
-    if (res.exhausted) throw new Error('Exhausted');
+    if (res.exhausted) {
+throw new Error('Exhausted');
+}
     throw res.err;
   }
 
@@ -218,7 +222,9 @@ export async function fetchLikedTweets(
   );
 
   if (!res.success) {
-    if (res.exhausted) throw new Error('Exhausted');
+    if (res.exhausted) {
+throw new Error('Exhausted');
+}
     throw res.err;
   }
 
@@ -317,7 +323,9 @@ export async function getTweet(
   );
 
   if (!res.success) {
-    if (res.exhausted) throw new Error('Exhausted');
+    if (res.exhausted) {
+throw new Error('Exhausted');
+}
     throw res.err;
   }
 
@@ -343,7 +351,9 @@ export async function getTweetAnonymous(
   );
 
   if (!res.success) {
-    if (res.exhausted) throw new Error('Exhausted');
+    if (res.exhausted) {
+throw new Error('Exhausted');
+}
     throw res.err;
   }
 

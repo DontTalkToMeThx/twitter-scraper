@@ -49,8 +49,9 @@ export interface TwitterAuth {
      * @param headers A Headers instance representing a request's headers.
      */
     installTo(headers: Headers, url: string): Promise<void>;
-    setExhausted(isExhausted: boolean): void;
+    setExhausted(isExhausted: boolean, promise?: Promise<any>): void;
     isExhausted(): boolean;
+    getExhaustPromise(): Promise<void> | undefined;
 }
 /**
  * A guest authentication token manager. Automatically handles token refreshes.
@@ -62,6 +63,7 @@ export declare class TwitterGuestAuth implements TwitterAuth {
     protected guestToken?: string;
     protected guestCreatedAt?: Date;
     protected exhausted: boolean;
+    protected exhaustPromise?: Promise<any>;
     fetch: typeof fetch;
     constructor(bearerToken: string, options?: Partial<TwitterAuthOptions> | undefined);
     cookieJar(): CookieJar;
@@ -71,8 +73,9 @@ export declare class TwitterGuestAuth implements TwitterAuth {
     deleteToken(): void;
     hasToken(): boolean;
     authenticatedAt(): Date | null;
-    setExhausted(isExhausted: boolean): void;
+    setExhausted(isExhausted: boolean, promise?: Promise<any>): void;
     isExhausted(): boolean;
+    getExhaustPromise(): Promise<void> | undefined;
     installTo(headers: Headers, url: string): Promise<void>;
     /**
      * Updates the authentication state with a new guest token from the Twitter API.

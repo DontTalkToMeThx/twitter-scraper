@@ -56,8 +56,9 @@ async function getFollowingTimeline(userId, maxItems, auth, cursor) {
     params.set('variables', (0, json_stable_stringify_1.default)(variables));
     const res = await (0, api_1.requestApi)(`https://twitter.com/i/api/graphql/iSicc7LrzWGBgDPL0tM_TQ/Following?${params.toString()}`, auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     return res.value;
@@ -88,8 +89,9 @@ async function getFollowersTimeline(userId, maxItems, auth, cursor) {
     params.set('variables', (0, json_stable_stringify_1.default)(variables));
     const res = await (0, api_1.requestApi)(`https://twitter.com/i/api/graphql/rRXFSG5vR6drKr5M37YOTw/Followers?${params.toString()}`, auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     return res.value;

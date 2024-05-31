@@ -27,8 +27,9 @@ async function fetchTweets(userId, maxTweets, cursor, auth) {
     }
     const res = await (0, api_1.requestApi)(userTweetsRequest.toRequestUrl(), auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     return (0, timeline_v2_1.parseTimelineTweetsV2)(res.value);
@@ -46,8 +47,9 @@ async function fetchListTweets(listId, maxTweets, cursor, auth) {
     }
     const res = await (0, api_1.requestApi)(listTweetsRequest.toRequestUrl(), auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     return (0, timeline_list_1.parseListTimelineTweets)(res.value);
@@ -86,8 +88,9 @@ async function fetchLikedTweets(userId, maxTweets, cursor, auth) {
     }
     const res = await (0, api_1.requestApi)(userTweetsRequest.toRequestUrl(), auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     return (0, timeline_v2_1.parseTimelineTweetsV2)(res.value);
@@ -148,8 +151,9 @@ async function getTweet(id, auth) {
     tweetDetailRequest.variables.focalTweetId = id;
     const res = await (0, api_1.requestApi)(tweetDetailRequest.toRequestUrl(), auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     if (!res.value) {
@@ -164,8 +168,9 @@ async function getTweetAnonymous(id, auth) {
     tweetResultByRestIdRequest.variables.tweetId = id;
     const res = await (0, api_1.requestApi)(tweetResultByRestIdRequest.toRequestUrl(), auth);
     if (!res.success) {
-        if (res.exhausted)
+        if (res.exhausted) {
             throw new Error('Exhausted');
+        }
         throw res.err;
     }
     if (!res.value.data) {

@@ -242,6 +242,7 @@ export declare class Scraper {
      * @returns This scraper instance.
      */
     withCookie(_cookie: string): Scraper;
+    waitForAuthToBeReady(): Promise<void>;
     /**
      * Sets the optional CSRF token to be used in requests.
      * @param _token The CSRF token to be used in requests.

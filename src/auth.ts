@@ -66,9 +66,11 @@ export interface TwitterAuth {
    */
   installTo(headers: Headers, url: string): Promise<void>;
 
-  setExhausted(isExhausted: boolean): void;
+  setExhausted(isExhausted: boolean, promise?: Promise<any>): void;
 
   isExhausted(): boolean;
+
+  getExhaustPromise(): Promise<void> | undefined;
 }
 
 /**
@@ -100,6 +102,7 @@ export class TwitterGuestAuth implements TwitterAuth {
   protected guestToken?: string;
   protected guestCreatedAt?: Date;
   protected exhausted: boolean;
+  protected exhaustPromise?: Promise<any>;
 
   fetch: typeof fetch;
 
@@ -149,12 +152,17 @@ export class TwitterGuestAuth implements TwitterAuth {
     return new Date(this.guestCreatedAt);
   }
 
-  setExhausted(isExhausted: boolean) {
+  setExhausted(isExhausted: boolean, promise?: Promise<any>) {
     this.exhausted = isExhausted;
+    this.exhaustPromise = promise;
   }
 
   isExhausted(): boolean {
     return this.exhausted;
+  }
+
+  getExhaustPromise(): Promise<void> | undefined {
+    return this.exhaustPromise;
   }
 
   async installTo(headers: Headers, url: string): Promise<void> {
@@ -224,7 +232,7 @@ export class TwitterGuestAuth implements TwitterAuth {
       !this.hasToken() ||
       (this.guestCreatedAt != null &&
         this.guestCreatedAt <
-          new Date(new Date().valueOf() - 3 * 60 * 60 * 1000))
+        new Date(new Date().valueOf() - 3 * 60 * 60 * 1000))
     );
   }
 }

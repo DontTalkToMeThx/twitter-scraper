@@ -63,11 +63,15 @@ class TwitterGuestAuth {
         }
         return new Date(this.guestCreatedAt);
     }
-    setExhausted(isExhausted) {
+    setExhausted(isExhausted, promise) {
         this.exhausted = isExhausted;
+        this.exhaustPromise = promise;
     }
     isExhausted() {
         return this.exhausted;
+    }
+    getExhaustPromise() {
+        return this.exhaustPromise;
     }
     async installTo(headers, url) {
         if (this.shouldUpdate()) {
