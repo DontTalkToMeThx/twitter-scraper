@@ -232,7 +232,7 @@ export class TwitterGuestAuth implements TwitterAuth {
       !this.hasToken() ||
       (this.guestCreatedAt != null &&
         this.guestCreatedAt <
-        new Date(new Date().valueOf() - 3 * 60 * 60 * 1000))
+          new Date(new Date().valueOf() - 3 * 60 * 60 * 1000))
     );
   }
 }

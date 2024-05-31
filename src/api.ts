@@ -99,7 +99,7 @@ export async function requestApi<T>(
         );
         setTimeout(() => {
           auth.setExhausted(false, undefined);
-        }, timeDeltaMs);
+        }, timeDeltaMs + 1);
 
         return {
           success: false,

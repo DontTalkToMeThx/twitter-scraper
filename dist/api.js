@@ -51,7 +51,7 @@ async function requestApi(url, auth, method = 'GET') {
                 }));
                 setTimeout(() => {
                     auth.setExhausted(false, undefined);
-                }, timeDeltaMs);
+                }, timeDeltaMs + 1);
                 return {
                     success: false,
                     err: await errors_1.ApiError.fromResponse(res),
