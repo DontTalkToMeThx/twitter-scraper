@@ -505,7 +505,9 @@ export class Scraper {
     return this;
   }
 
-  public waitForAuthToBeReady(): Promise<void> {
+  public waitForAuthToBeReady(): Promise<void> | undefined {
+    if (this.auths.some((a) => !a.auth.isExhausted())) return;
+
     return Promise.any(
       this.auths.map((a) => a.auth.getExhaustPromise()).filter((a) => a),
     );
